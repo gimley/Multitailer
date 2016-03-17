@@ -8,7 +8,7 @@ import java.util.Date;
 public final class LogRecord implements Comparable<LogRecord>{
     private final Date timestamp;
     private final String log;
-    private boolean isError;
+    private final boolean isError;
 
     LogRecord(Date timestamp, String log, boolean isError) {
         this.timestamp = timestamp;

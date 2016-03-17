@@ -42,7 +42,7 @@ public enum MultiTailer {
         outputThread.start();
     }
 
-    public void processLine(String line, String filepath) {
+    private void processLine(String line, String filepath) {
         try {
             logRecords.put(new ProcessRecordHelper().processLine(line, filepath));
         } catch (InterruptedException e) {
