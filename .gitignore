@@ -16,5 +16,4 @@ gradle-app.setting
 
 ## Directory-based project format:
 .idea/
-input/
 *.log

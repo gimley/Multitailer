@@ -1,5 +1,9 @@
 package org.sky;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
 
 import java.io.FileWriter;
@@ -19,6 +23,7 @@ public enum LogRecordOutput implements Runnable {
     private long maxWaitTime = MultiTailerConstants.MAX_TIMEWAIT;
     private static final String outFileName = "output.log";
     private static final String errorFileName = "error.log";
+    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // debug
     private AtomicInteger count = new AtomicInteger(0);
@@ -54,8 +59,12 @@ public enum LogRecordOutput implements Runnable {
                 for (LogRecord record: outputRecords) {
                     if (record.isError())
                         err.write("# INVALID_LINE: " + record.getLog() + "\n");
-                    else
-                        output.write(record.getLog() + "\n");
+                    else {
+                        JsonParser jp = new JsonParser();
+                        JsonElement je = jp.parse(record.getLog());
+                        String prettyJsonString = gson.toJson(je);
+                        output.write(prettyJsonString + "\n");
+                    }
                 }
                 IOUtils.closeQuietly(output);
                 IOUtils.closeQuietly(err);
