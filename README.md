@@ -60,6 +60,7 @@ The desired solution emit the valid lines to standard output and the invalid lin
 ### Further tasks
 
 * If the log files are to frequently writing and rotating, `Tailer` doesn't seem to handle it well.
+* Create a watcher service to monitor directory for new log files created so they too can be monitored. Current implementation assumes that files are already being generated in directory to be tailed.
 * Make test scripts more customizable.
 * Better test cases.
 * Performance optimizations if possible.
